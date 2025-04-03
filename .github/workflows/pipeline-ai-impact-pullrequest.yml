@@ -1,9 +1,9 @@
 name: AI Impact Pull Request Trigger
 on:
-  workflow_dispatch:
-  #pull_request:
-   # branches:
-   #   - master
+  #workflow_dispatch:
+  pull_request:
+   branches:
+      - master
 
 permissions:
   contents: write
@@ -24,7 +24,7 @@ jobs:
             -H 'Content-Type: application/x-www-form-urlencoded' \
             -d 'client_id=ai-impact-client' \
             -d "username=administrator" \
-            -d "password=Gft@202" \
+            -d "password=Gft@2025" \
             -d "scope=openid" \
             -d "grant_type=password")
 
@@ -45,6 +45,7 @@ jobs:
           RESPONSE=$(curl --location 'http://api.gftaiimpact.local/ai/review' \
             --header "Authorization: Bearer ${{ env.access_token }}" \
             --form 'RunName="CodeReview"' \
+            --form 'JobName="DemoCodeReviewerGitHub"' \
             --form 'PromptId="CodeReviewer__CodeReviewer_V1_Conventions"' \
             --form 'Llm="${{ vars.LLM }}"' \
             --form 'PullRequestId="${{ github.event.pull_request.number }}"' \
